@@ -77,6 +77,12 @@ class ProductDetail extends Component {
 
   private _setInFavorite() {
     this.view.btnFav.disabled = true
+
+    if (this.view.btnFav.disabled === false) {
+      this.view.favSvg.innerHTML = `<use xlink:href="#heart"></use>`
+    } else {
+      this.view.favSvg.innerHTML = `<use xlink:href="#heartDisabled"></use>`
+    }
   }
 }
 
