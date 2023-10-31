@@ -4,6 +4,8 @@ import { formatPrice } from '../../utils/helpers';
 import { ProductData } from 'types';
 import html from './productDetail.tpl.html';
 import { cartService } from '../../services/cart.service';
+import { statisticService } from '../../services/statistic.service';
+
 
 class ProductDetail extends Component {
   more: ProductList;
@@ -34,27 +36,27 @@ class ProductDetail extends Component {
     this.view.btnBuy.onclick = this._addToCart.bind(this);
 
     const isInCart = await cartService.isInCart(this.product);
-
     if (isInCart) this._setInCart();
 
     fetch(`/api/getProductSecretKey?id=${id}`)
       .then((res) => res.json())
       .then((secretKey) => {
         this.view.secretKey.setAttribute('content', secretKey);
-      });
-
+        statisticService.productEvent(this.product, this.product?.log?.cpm ? 'viewCardPromo' : 'viewCard', Date.now(), secretKey) // Проверка через полей в log
+      })
     fetch('/api/getPopularProducts')
       .then((res) => res.json())
       .then((products) => {
         this.more.update(products);
       });
+
   }
 
   private _addToCart() {
     if (!this.product) return;
-
     cartService.addProduct(this.product);
     this._setInCart();
+    statisticService.addToCartEvent(this.product, 'addToCart', Date.now())
   }
 
   private _setInCart() {

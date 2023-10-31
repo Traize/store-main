@@ -29,7 +29,7 @@ export default class Router {
     // @ts-ignore
     const component = ROUTES[window.location.pathname] || notFoundComp;
 
-    statisticService.sendStatistic(this.$appRoot.baseURI, 'route')
+    statisticService.routeEvent(this.$appRoot.baseURI, 'route', Date.now())
     component.attach(this.$appRoot);
     component.render();
   }
