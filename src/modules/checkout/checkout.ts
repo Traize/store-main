@@ -1,9 +1,10 @@
 import { Component } from '../component';
 import { Product } from '../product/product';
 import html from './checkout.tpl.html';
-import { formatPrice } from '../../utils/helpers';
+import { formatPrice, genUUID } from '../../utils/helpers';
 import { cartService } from '../../services/cart.service';
 import { ProductData } from 'types';
+import { statisticService } from '../../services/statistic.service';
 
 class Checkout extends Component {
   products!: ProductData[];
@@ -26,6 +27,7 @@ class Checkout extends Component {
     this.view.price.innerText = formatPrice(totalPrice);
 
     this.view.btnOrder.onclick = this._makeOrder.bind(this);
+
   }
 
   private async _makeOrder() {
@@ -34,7 +36,8 @@ class Checkout extends Component {
       method: 'POST',
       body: JSON.stringify(this.products)
     });
-    window.location.href = '/?isSuccessOrder';
+    statisticService.purchaseEvent('purchase', Date.now(), genUUID(), this.products)
+    // window.location.href = '/?isSuccessOrder';
   }
 }
 
