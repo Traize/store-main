@@ -1,0 +1,29 @@
+.searchHints {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 550;
+    line-height: 24px;
+    // font-family: ALS Hauss VF;
+
+
+    &__wrapper {
+        text-decoration: none;
+        display: flex;
+        padding: 4px 6px 8px 6px;
+        align-items: flex-start;
+        gap: 10px;
+        border-radius: 8px;
+        background: var(--system-smoky, #F6F6FA);
+
+    }
+
+    &__hint {
+        background: linear-gradient(93deg, #DA15B8 4.93%, #8D06CC 100%);
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+}
