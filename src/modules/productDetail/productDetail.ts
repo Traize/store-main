@@ -61,7 +61,6 @@ class ProductDetail extends Component {
       .then((products) => {
         this.more.update(products);
       });
-    console.log(userId, 'detail')
   }
 
   private _addToCart() {
