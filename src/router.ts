@@ -3,12 +3,14 @@ import { notFoundComp } from './modules/notFound/notFound';
 import { homepageComp } from './modules/homepage/homepage';
 import { productDetailComp } from './modules/productDetail/productDetail';
 import { checkoutComp } from './modules/checkout/checkout';
+import { searchHintComp } from './modules/searchHints/searchHints';
 
 const ROUTES = {
   '/': homepageComp,
   '/catalog': catalogComp,
   '/product': productDetailComp,
-  '/checkout': checkoutComp
+  '/checkout': checkoutComp,
+  '/search-hints': searchHintComp
 };
 
 export default class Router {
