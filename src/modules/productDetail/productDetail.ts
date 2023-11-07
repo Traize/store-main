@@ -19,7 +19,6 @@ class ProductDetail extends Component {
   async render() {
     const urlParams = new URLSearchParams(window.location.search);
     const productId = Number(urlParams.get('id'));
-
     const productResp = await fetch(`/api/getProduct?id=${productId}`);
     this.product = await productResp.json();
 
@@ -34,6 +33,7 @@ class ProductDetail extends Component {
     this.view.btnBuy.onclick = this._addToCart.bind(this);
 
     const isInCart = await cartService.isInCart(this.product);
+    this.view.delBtn.onclick = this._deleteFromCart.bind(this)
 
     if (isInCart) this._setInCart();
 
@@ -60,6 +60,15 @@ class ProductDetail extends Component {
   private _setInCart() {
     this.view.btnBuy.innerText = '✓ В корзине';
     this.view.btnBuy.disabled = true;
+    this.view.delBtn.style.visibility = 'visible'
+  }
+
+  private _deleteFromCart() {
+    if (!this.product) return
+    cartService.removeProduct(this.product)
+    this.view.btnBuy.innerText = 'В корзину';
+    this.view.btnBuy.disabled = false;
+    this.view.delBtn.style.visibility = 'hidden'
   }
 }
 
