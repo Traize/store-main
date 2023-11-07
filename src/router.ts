@@ -4,6 +4,7 @@ import { homepageComp } from './modules/homepage/homepage';
 import { productDetailComp } from './modules/productDetail/productDetail';
 import { checkoutComp } from './modules/checkout/checkout';
 import { searchHintComp } from './modules/searchHints/searchHints';
+import { statisticService } from './services/statistic.service';
 
 const ROUTES = {
   '/': homepageComp,
@@ -29,7 +30,7 @@ export default class Router {
 
     // @ts-ignore
     const component = ROUTES[window.location.pathname] || notFoundComp;
-
+    statisticService.makeRequest('route', Date.now(), this.$appRoot.baseURI)
     component.attach(this.$appRoot);
     component.render();
   }
