@@ -1,7 +1,7 @@
 type StatisticData = {
-    event: string | null,
-    payload: Object | null,
-    timestamp: number | null,
+    event: string,
+    payload: Object,
+    timestamp: number,
 }
 
 class StatisticService {
